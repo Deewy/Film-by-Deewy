@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film by Deewy</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    #searchInput {
+      padding: 8px;
+      width: 300px;
+    }
+
+    #resultList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .resultItem {
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .link {
+      color: blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .link:hover {
+      color: darkblue;
+    }
+  </style>
+</head>
+<body>
+
+  <label for="searchInput">Recherche : </label>
+  <input type="text" id="searchInput" oninput="search()" onkeydown="handleKeyDown(event)">
+  
+  <ul id="resultList"></ul>
+
+  <script>
+    // Liste des mots associés
+    const wordsList = [
+      { word: "Fast and Furious 1", description : "https://uqload.io/jgtmkfydngks.html" },
+      // ... (autres éléments du tableau)
+    ];
+
+    // Fonction de recherche
+    function search() {
+      const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+      const resultList = document.getElementById("resultList");
+      resultList.innerHTML = ""; // Efface les résultats précédents
+
+      // Filtrer les mots associés en fonction de la recherche
+      const filteredWords = wordsList.filter(item => item.word.toLowerCase().includes(searchTerm));
+
+      // Afficher les résultats
+      filteredWords.forEach(item => {
+        const listItem = document.createElement("li");
+        listItem.classList.add("resultItem");
+        listItem.innerHTML = `<strong>${item.word}</strong>: <span class="link" onclick="redirectToLink('${item.description}')">Cliquez ici</span>`;
+        resultList.appendChild(listItem);
+      });
+    }
+
+    // Gestion de la touche "Entrée"
+    function handleKeyDown(event) {
+      if (event.keyCode === 13) {
+        // Si la touche "Entrée" est pressée, déclenche la recherche
+        search();
+      }
+    }
+
+    // Fonction pour rediriger vers le lien
+    function redirectToLink(link) {
+      window.location.href = link;
+    }
+  </script>
+
+</body>
+</html>
